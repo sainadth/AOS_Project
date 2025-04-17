@@ -18,3 +18,10 @@ kubectl get nodes
 
 # Test connectivity to the server
 ping -c 4 $SERVER_IP
+
+# Deploy SQLite as a Kubernetes deployment
+if ! kubectl apply -f sqlite-deployment.yaml; then
+  echo "Error: Failed to deploy SQLite."
+  exit 1
+fi
+echo "Deployed SQLite."

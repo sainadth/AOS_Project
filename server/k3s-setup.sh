@@ -37,12 +37,26 @@ if ! kubectl apply -f prometheus-deployment.yaml; then
 fi
 echo "Deployed Prometheus."
 
+# Deploy Prometheus Service
+if ! kubectl apply -f prometheus-service.yaml; then
+  echo "Error: Failed to deploy Prometheus Service."
+  exit 1
+fi
+echo "Deployed Prometheus Service."
+
 # Deploy Grafana (for visualization)
 if ! kubectl apply -f grafana-deployment.yaml; then
   echo "Error: Failed to deploy Grafana."
   exit 1
 fi
 echo "Deployed Grafana."
+
+# Deploy Grafana Service
+if ! kubectl apply -f grafana-service.yaml; then
+  echo "Error: Failed to deploy Grafana Service."
+  exit 1
+fi
+echo "Deployed Grafana Service."
 
 # Deploy TimescaleDB (for centralized time-series data storage)
 if ! kubectl apply -f timescaledb-deployment.yaml; then
