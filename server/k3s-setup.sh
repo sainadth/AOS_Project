@@ -58,7 +58,14 @@ if ! kubectl apply -f grafana-service.yaml; then
 fi
 echo "Deployed Grafana Service."
 
-# Deploy TimescaleDB (for centralized time-series data storage)
+# Create PersistentVolume for TimescaleDB
+if ! kubectl apply -f timescaledb-pv.yaml; then
+  echo "Error: Failed to create PersistentVolume for TimescaleDB."
+  exit 1
+fi
+echo "Created PersistentVolume for TimescaleDB."
+
+# Deploy TimescaleDB
 if ! kubectl apply -f timescaledb-deployment.yaml; then
   echo "Error: Failed to deploy TimescaleDB."
   exit 1
