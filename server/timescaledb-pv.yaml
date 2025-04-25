@@ -8,4 +8,12 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/data/timescaledb
+    path: /mnt/timescaledb  # Path on the node where data will be stored
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - "ip-172-31-1-199"  # Ensure the PV is bound to this node

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: timescaledb-script
+data:
+  timescaledb-mqtt.sh: |
+    #!/bin/sh
+
+    LOG_FILE="/var/log/timescaledb-sync.log"
+    echo "Starting TimescaleDB with MQTT Pub/Sub at $(date)" >> $LOG_FILE
+
+    MQTT_BROKER_PORT="30050"
+
+    # Function to process agent updates
+    process_agent_updates() {
+      echo "Processing agent update: $1" >> $LOG_FILE
+      # Add logic to process the message, e.g., insert into TimescaleDB
+      psql -U $POSTGRES_USER -d $POSTGRES_DB -c \
+      "INSERT INTO agent_data (id, agent_name, data) VALUES ($1, 'AgentName', 'Data') ON CONFLICT (id) DO NOTHING;" \
+      >> $LOG_FILE 2>&1 || echo "Failed to process agent update: $1" >> $LOG_FILE
+    }
+
+    # Subscribe to agent updates
+    mosquitto_sub -h $MQTT_BROKER_HOST -p $MQTT_BROKER_PORT -t $MQTT_AGENT_TOPIC | while read -r message; do
+      echo "Received MQTT message: $message" >> $LOG_FILE
+      process_agent_updates "$message"
+    done &
+
+    # Publish server updates periodically
+    while true; do
+      mosquitto_pub -h $MQTT_BROKER_HOST -t $MQTT_SERVER_TOPIC -m "Server update at $(date)"
+      sleep 60
+    done

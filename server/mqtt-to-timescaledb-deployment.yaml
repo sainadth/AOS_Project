@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-to-timescaledb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mqtt-to-timescaledb
+  template:
+    metadata:
+      labels:
+        app: mqtt-to-timescaledb
+    spec:
+      containers:
+      - name: mqtt-to-timescaledb
+        image: python:3.9-slim  # Use a lightweight Python image
+        command: ["sh", "-c", "pip install paho-mqtt psycopg2-binary && python /app/mqtt-to-timescaledb.py"]
+        volumeMounts:
+        - name: mqtt-to-timescaledb-code
+          mountPath: /app
+        env:
+        - name: MQTT_BROKER
+          value: "mosquitto-service"  # Use the Mosquitto service name in Kubernetes
+        - name: DB_HOST
+          value: "timescaledb"  # Use the TimescaleDB service name in Kubernetes
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: "metrics"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASSWORD
+          value: "admin"
+      volumes:
+      - name: mqtt-to-timescaledb-code
+        configMap:
+          name: mqtt-to-timescaledb-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mqtt-to-timescaledb-config
+data:
+  mqtt-to-timescaledb.py: |
+    import paho.mqtt.client as mqtt
+    import psycopg2
+    import json
+
+    MQTT_BROKER = "mosquitto-service"
+    MQTT_PORT = 1883
+    MQTT_TOPIC = "mysql-sync"
+
+    DB_HOST = "timescaledb"
+    DB_PORT = 5432
+    DB_NAME = "metrics"
+    DB_USER = "admin"
+    DB_PASSWORD = "admin"
+
+    def connect_to_db():
+        return psycopg2.connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            dbname=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD
+        )
+
+    def on_message(client, userdata, msg):
+        print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
+        try:
+            data = json.loads(msg.payload.decode())
+            agent_name = data.get("agent_name")
+            event_data = data.get("data")
+
+            conn = connect_to_db()
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO agent_data (agent_name, data) VALUES (%s, %s);",
+                (agent_name, event_data)
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            print("Data inserted into TimescaleDB successfully.")
+        except Exception as e:
+            print(f"Error processing message: {e}")
+
+    def main():
+        client = mqtt.Client()
+        client.on_message = on_message
+
+        client.connect(MQTT_BROKER, MQTT_PORT, 60)
+        client.subscribe(MQTT_TOPIC)
+
+        print(f"Subscribed to MQTT topic: {MQTT_TOPIC}")
+        client.loop_forever()
+
+    if __name__ == "__main__":
+        main()

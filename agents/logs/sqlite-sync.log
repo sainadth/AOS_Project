@@ -1,0 +1,285 @@
+Starting SQLite synchronization script with MQTT at Sun Apr 20 21:53:31 UTC 2025
+Creating SQLite DB at /data/agent_data.db
+Starting SQLite synchronization script with MQTT at Sun Apr 20 21:57:54 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:02:29 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:07:16 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:17:06 UTC 2025
+Creating SQLite DB at /data/agent_data.db
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:21:24 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:25:58 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:30:45 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:35:55 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:39:31 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:44:31 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:51:43 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 22:58:53 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:01:32 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:03:44 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:06:04 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:08:43 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:11:48 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:15:22 UTC 2025
+Starting SQLite synchronization script with MQTT at Sun Apr 20 23:20:32 UTC 2025
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:06:07 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:06:53 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:07:18 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:13:34 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:16:58 UTC 2025
+Error: Operation timed out
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:21:40 UTC 2025
+Error: Operation timed out
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:25:32 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: FATAL:  database "timescaledb" does not exist
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:30:48 UTC 2025
+NOTICE:  relation "agent_data" already exists, skipping
+CREATE TABLE
+Setting up watches.
+Watches established.
+Error: Operation timed out
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:33:11 UTC 2025
+Error: The connection was lost.
+Setting up watches.
+Watches established.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:37:02 UTC 2025
+Error: The connection was lost.
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Mon Apr 21 00:39:44 UTC 2025
+NOTICE:  relation "agent_data" already exists, skipping
+CREATE TABLE
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:40:34 UTC 2025
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:41:15 UTC 2025
+Setting up watches.
+Watches established.
+Error: Operation timed out
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:48:01 UTC 2025
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 00:54:06 UTC 2025
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 01:26:07 UTC 2025
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Mon Apr 21 03:16:16 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 03:56:10 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 04:41:33 UTC 2025
+Setting up watches.
+Watches established.
+/data/agent_data.db MODIFY 
+Publishing update to MQTT at Mon Apr 21 04:42:38 UTC 2025
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Mon Apr 21 06:34:03 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 09:24:18 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 20:33:08 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 20:50:57 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 21:11:12 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 21:25:29 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Mon Apr 21 22:39:23 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Tue Apr 22 00:30:20 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Tue Apr 22 01:20:59 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Tue Apr 22 02:05:10 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Tue Apr 22 02:24:45 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Wed Apr 23 15:46:22 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Wed Apr 23 18:04:28 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Wed Apr 23 18:43:44 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Wed Apr 23 20:20:48 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 01:06:30 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 02:28:45 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 02:55:45 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 04:12:08 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 14:00:04 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Thu Apr 24 15:47:02 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Operation timed out
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Fri Apr 25 08:45:38 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Starting SQLite synchronization script with MQTT at Fri Apr 25 08:45:47 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Fri Apr 25 09:40:44 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Fri Apr 25 10:18:50 UTC 2025
+psql: error: connection to server at "3.129.21.182", port 30989 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Setting up watches.
+Watches established.
+Error: Operation timed out
+Starting SQLite synchronization script with MQTT at Fri Apr 25 18:40:51 UTC 2025

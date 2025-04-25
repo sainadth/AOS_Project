@@ -12,11 +12,20 @@ spec:
       labels:
         app: grafana
     spec:
+      nodeSelector:  # Ensure the pod is scheduled on the server node
+        kubernetes.io/hostname: "ip-172-31-1-199"  # Replace with the desired node name
       containers:
       - name: grafana
         image: grafana/grafana
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
         env:
         - name: GF_SECURITY_ADMIN_PASSWORD
           value: "admin"

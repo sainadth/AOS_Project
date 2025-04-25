@@ -7,6 +7,17 @@ sudo ufw allow 10250/tcp
 sudo ufw allow 30090/tcp # Prometheus NodePort
 sudo ufw allow 30030/tcp # Grafana NodePort
 
+### Verify NodePort Binding
+sudo netstat -tuln | grep 300
+
+### Test Access from Within the Server
+curl http://localhost:30030
+curl http://localhost:30090
+
+### Test Access from Within the Cluster
+kubectl exec -it <any-pod> -- curl http://grafana-service:3000
+kubectl exec -it <any-pod> -- curl http://prometheus-service:9090
+
 ### K3S_TOKEN
 cat /var/lib/rancher/k3s/server/node-token
 

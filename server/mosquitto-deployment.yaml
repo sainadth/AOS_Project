@@ -12,9 +12,27 @@ spec:
       labels:
         app: mosquitto
     spec:
+      nodeSelector:  # Ensure the pod is scheduled on the server node
+        kubernetes.io/hostname: "ip-172-31-1-199"  # Replace with the server node name
+      initContainers:
+      - name: init-mosquitto-config
+        image: busybox
+        command: ["sh", "-c", "echo 'listener 1883\nallow_anonymous true\nbind_address 0.0.0.0' > /mosquitto/config/mosquitto.conf"]
+        volumeMounts:
+        - name: mosquitto-config
+          mountPath: /mosquitto/config
       containers:
       - name: mosquitto
         image: eclipse-mosquitto
         ports:
         - containerPort: 1883
         - containerPort: 9001
+        volumeMounts:
+        - name: mosquitto-config
+          mountPath: /mosquitto/config
+        env:
+        - name: MQTT_TOPIC
+          value: "mysql-sync"
+      volumes:
+      - name: mosquitto-config
+        emptyDir: {}

@@ -12,17 +12,57 @@ spec:
       labels:
         app: sqlite
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - "surajloni"  # AGENT NODE NAME
+      dnsConfig:
+        nameservers:
+        - 208.67.222.222
+        - 208.67.220.220
+        searches:
+        - default.svc.cluster.local
       containers:
       - name: sqlite
-        image: nouchka/sqlite3:latest
+        image: alpine:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MQTT_BROKER_HOST
+          value: "3.129.21.182"  # Ensure this is the correct MQTT broker IP
+        - name: TIMESCALE_DB_HOST
+          value: "3.129.21.182"  # Ensure this is the correct TimescaleDB server IP
         volumeMounts:
         - name: sqlite-data
           mountPath: /data
-        command: ["sqlite3", "/data/agent_data.db"]
+        - name: logs
+          mountPath: /var/log
+        - name: script-volume
+          mountPath: /scripts
+        command:
+        - sh
+        - -c
+        - |
+          apk add --no-cache sqlite postgresql-client mosquitto-clients inotify-tools
+          cp /scripts/sqlite-sync.sh /tmp/sqlite-sync.sh
+          chmod +x /tmp/sqlite-sync.sh
+          sh /tmp/sqlite-sync.sh || tail -f /dev/null  # Keep the container running for debugging
       volumes:
       - name: sqlite-data
         persistentVolumeClaim:
           claimName: sqlite-pvc
+      - name: logs
+        hostPath:  # Use hostPath for persistent logs
+          path: /mnt/c/Users/suraj/OneDrive/Documents/San/AOS_Project/agents/logs
+          type: DirectoryOrCreate
+      - name: script-volume
+        configMap:
+          name: sqlite-sync-script
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -30,7 +70,29 @@ metadata:
   name: sqlite-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sqlite-pv
+  labels:
+    type: sqlite-storage
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/c/Users/suraj/OneDrive/Documents/San/AOS_Project/agents/sqlite-data  # AGENT local path
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - "surajloni"  # AGENT NODE

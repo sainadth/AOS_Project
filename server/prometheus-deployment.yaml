@@ -12,6 +12,8 @@ spec:
       labels:
         app: prometheus
     spec:
+      nodeSelector:  # Ensure the pod is scheduled on the server node
+        kubernetes.io/hostname: "ip-172-31-1-199"  # Replace with the desired node name
       containers:
       - name: prometheus
         image: prom/prometheus

@@ -5,8 +5,10 @@ function App() {
   const [formData, setFormData] = useState({ column1: '', column2: '' });
   const [editId, setEditId] = useState(null);
 
+  const API_BASE_URL = `http://${window.location.hostname}:5000`; // Use the backend hostname dynamically
+
   const fetchData = async () => {
-    const response = await fetch('/data');
+    const response = await fetch(`${API_BASE_URL}/data`);
     const result = await response.json();
     setData(result);
   };
@@ -14,14 +16,14 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (editId) {
-      await fetch(`/data/${editId}`, {
+      await fetch(`${API_BASE_URL}/data/${editId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       setEditId(null);
     } else {
-      await fetch('/data', {
+      await fetch(`${API_BASE_URL}/data`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -32,7 +34,7 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`/data/${id}`, { method: 'DELETE' });
+    await fetch(`${API_BASE_URL}/data/${id}`, { method: 'DELETE' });
     fetchData();
   };
 

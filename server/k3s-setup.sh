@@ -83,6 +83,15 @@ SERVER_TOKEN=$(sudo cat /var/lib/rancher/k3s/server/node-token)
 echo "Server IP: $SERVER_IP"
 echo "Server Token: $SERVER_TOKEN"
 
+# Configure firewall rules
+echo "Configuring firewall rules..."
+sudo ufw allow 30030/tcp # Grafana
+sudo ufw allow 30090/tcp # Prometheus
+sudo ufw allow 10250/tcp # Kubelet
+sudo ufw --force enable
+sudo ufw reload
+echo "Firewall rules configured."
+
 # Configure log rotation
 cat <<EOF | sudo tee /etc/logrotate.d/server-setup
 $LOG_FILE {

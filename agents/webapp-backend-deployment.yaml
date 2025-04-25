@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp-backend
+  template:
+    metadata:
+      labels:
+        app: webapp-backend
+    spec:
+      containers:
+      - name: webapp-backend
+        image: python:3.9-slim  # Use a lightweight Python image
+        command: ["sh", "-c", "pip install flask flask-cors paho-mqtt psutil && python /app/webapp.py"]
+        volumeMounts:
+        - name: backend-code
+          mountPath: /app
+        - name: sqlite-data
+          mountPath: /data  # Mount the same volume as SQLite
+        ports:
+        - containerPort: 5000  # Flask default port
+      volumes:
+      - name: backend-code
+        configMap:
+          name: webapp-backend-config
+      - name: sqlite-data
+        persistentVolumeClaim:
+          claimName: sqlite-pvc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - "surajloni"  # Replace with the agent's node name
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-backend-config
+data:
+  webapp.py: |
+    # ...existing code from webapp.py...
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-backend-service
+spec:
+  selector:
+    app: webapp-backend
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 30061  # Expose the backend on NodePort 30061

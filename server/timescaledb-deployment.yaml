@@ -12,6 +12,15 @@ spec:
       labels:
         app: timescaledb
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - "ip-172-31-1-199"  # Ensure the pod is scheduled on this node
       containers:
       - name: timescaledb
         image: timescale/timescaledb:latest-pg14
@@ -24,10 +33,61 @@ spec:
           value: "admin"
         - name: POSTGRES_DB
           value: "metrics"
+        - name: PGOPTIONS
+          value: "-c listen_addresses='*'"  # Allow external connections
+        - name: MQTT_BROKER_HOST
+          value: "3.129.21.182"  # MQTT broker IP
+        - name: MQTT_AGENT_TOPIC
+          value: "agent/updates"  # Topic to subscribe to agent updates
+        - name: MQTT_SERVER_TOPIC
+          value: "server/updates"  # Topic to publish server updates
         volumeMounts:
         - name: timescaledb-data
           mountPath: /var/lib/postgresql/data
+        - name: script-volume
+          mountPath: /scripts
+        command:
+        - sh
+        - -c
+        - |
+          apk add --no-cache mosquitto-clients
+          chmod +x /scripts/timescaledb-mqtt.sh
+          sh /scripts/timescaledb-mqtt.sh
       volumes:
       - name: timescaledb-data
         persistentVolumeClaim:
           claimName: timescaledb-pvc
+      - name: script-volume
+        configMap:
+          name: timescaledb-script
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: timescaledb-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/timescaledb  # Path on the node where data will be stored
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - "ip-172-31-1-199"  # Ensure the PV is bound to this node
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: timescaledb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
